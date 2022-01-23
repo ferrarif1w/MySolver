@@ -298,5 +298,7 @@ int main(int argc, char** args) {
     }
     board.updateLogVictory(cond);
     PTE("File di log generato: '" + logFile + "'!");
-    PTE("Grazie per aver giocato!"); 
+    PTE("Grazie per aver giocato!");
+    delete players[0];
+    delete players[1];
 }
