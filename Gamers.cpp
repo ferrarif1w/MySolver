@@ -10,10 +10,6 @@ Gamers::Gamers(char C, ChessBoard *B)
     chessBoard = std::shared_ptr<ChessBoard>(B);
 }
 
-Gamers::~Gamers() {
-    chessBoard.reset();
-}
-
 bool Gamers::Move(std::string start, std::string end)
 {
     //si trsforma la lettera della riga/colonna in un valore corrispondente (0-7) per la scacchiera
