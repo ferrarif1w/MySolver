@@ -34,6 +34,8 @@ class ChessBoard {
             Move();
         };
         ChessBoard(std::string log = "", std::string playerWhite = "", std::string playerBlack = "");
+        //distruttore: dealloca la memoria dei pezzi rimanenti
+        ~ChessBoard();
         //ritorna vettore con tutte le mosse possibili per giocatore con color
         std::vector<Move> movesAvailable(char color);
         //metodo generale

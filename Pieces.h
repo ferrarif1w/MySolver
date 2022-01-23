@@ -19,6 +19,9 @@ protected:
 public:
     Pieces(std::pair<int, int> position, char color, char n, int moved); //costruttore del pezzo (coordinate, colore, nome, stato)
 
+    Pieces(const Pieces& p) = delete;                                    //costruttore e assegnamento di copia disabilitati
+    Pieces& operator=(const Pieces& p) = delete;
+
     void SetMove(std::pair<int, int> NewPosition);                      //metodo che aggiorna la posizione e incrementa il numero di mosse
     std::pair<int, int> GetPosition();                                  //metodo che restituisce la posizione attuale del pezzo
 

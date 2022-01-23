@@ -39,6 +39,17 @@ ChessBoard::ChessBoard(std::string log, std::string playerWhite, std::string pla
     }
 }
 
+ChessBoard::~ChessBoard() {
+    //se un pezzo è ancora in scacchiera, viene deallocata memoria e puntatatore impostato a null
+    //(se è stato mangiato, questo processo viene effettuato in performMove)
+    for (int i = 0; i < piecesList.size(); i++) {
+        if (piecesList[i]) {
+            delete piecesList[i];
+            piecesList[i] = nullptr;
+        }
+    }
+}
+
 std::vector<ChessBoard::Move> ChessBoard::movesAvailable(char color) {
     std::vector<Move> moves;
     //offset di pezzi bianchi/neri in piecesList

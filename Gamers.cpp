@@ -10,6 +10,11 @@ Gamers::Gamers(char C, ChessBoard *B)
     chessBoard = B;
 }
 
+Gamers::~Gamers() {
+    delete chessBoard;
+    chessBoard = nullptr;
+}
+
 bool Gamers::Move(std::string start, std::string end)
 {
     //si trsforma la lettera della riga/colonna in un valore corrispondente (0-7) per la scacchiera

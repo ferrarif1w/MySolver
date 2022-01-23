@@ -19,6 +19,9 @@ public:
 //costruttore
         Gamers(char C, ChessBoard *chessBoard);         //costruttore dei due tipi di giocatori (bot e giocatore umano)
 
+//distruttore
+        ~Gamers();
+
         //player
         bool Move(std::string start, std::string end);  //metodo che esegue la mossa per il player
         int GetCondition();                             //metodo che restituisce se la condizione del giocatore (vedere chessboard.h per la lista delle possibili condizioni)
