@@ -158,12 +158,13 @@ int main(int argc, char** args) {
                 if (game == "pc") { //umano-bot: umano decide se dichiarare patta
                     message = "La configurazione attuale della scacchiera è comparsa per la terza volta! ";
                     //whiteCode rappresenta indice di giocatore umano in names
-                    message += names[whiteCode] + ", vuoi dichiarare patta?";
+                    message += names[whiteCode] + ", inserisci 'y' per dichiarare patta!";
                     PTE(message);
                     char draw;
                     cin >> draw;
                     if (draw == 'y') {
-                        PTE("La partita termina in patta!");
+                        PTE("La partita termina in patta! Ecco la scacchiera finale:");
+                        cout << board->printBoard();
                         endgame = true;
                     }
                     else {
@@ -176,7 +177,8 @@ int main(int argc, char** args) {
                     message += names[index] + " può dichiarare patta!";
                     PTE(message);
                     if (randomDecision(BRDD)) {
-                        PTE(names[index] + " dichiara patta! La partita termina!");
+                        PTE(names[index] + " dichiara patta! La partita termina! Ecco la scacchiera finale:");
+                        cout << board->printBoard();
                         endgame = true;
                     }
                     else {
@@ -194,7 +196,8 @@ int main(int argc, char** args) {
             if (code == "y") cout << board->printBoard();
             else if (code == "patta") { //se umano propone patta, bot decide casualmente se accettarla
                 if (randomDecision(BDAP)) {
-                    PTE(names[(i+1)%2] + " accetta la patta! La partita termina!");
+                    PTE(names[(i+1)%2] + " accetta la patta! La partita termina! Ecco la scacchiera finale:");
+                    cout << board->printBoard();
                     cond = 7;
                     endgame = true;
                     continue;
@@ -244,7 +247,8 @@ int main(int argc, char** args) {
                     char answer;
                     cin >> answer;
                     if (answer == 'y') {
-                        PTE("Patta accettata! La partita termina!");
+                        PTE("Patta accettata! La partita termina! Ecco la scacchiera finale:");
+                        cout << board->printBoard();
                         endgame = true;
                         cond = 7;
                         continue;
@@ -254,7 +258,8 @@ int main(int argc, char** args) {
                 else {  //avversario bot: decide randomicamente se accettare patta
                     PTE(message, 1, 250);
                     if (randomDecision(BDAP)) {
-                        PTE(names[(i+1)%2] + " accetta la patta! La partita termina!");
+                        PTE(names[(i+1)%2] + " accetta la patta! La partita termina! Ecco la scacchiera finale:");
+                        cout << board->printBoard();
                         endgame = true;
                         cond = 7;
                         continue;
@@ -293,7 +298,8 @@ int main(int argc, char** args) {
     }
     //aggiorna log con informazioni su vittoria
     if (game == "cc" && i == movesThreshold) {
-        PTE("La partita termina in patta! È stata effettuata la " + to_string(movesThreshold) + "esima mossa totale!");
+        PTE("La partita termina in patta! È stata effettuata la " + to_string(movesThreshold) + "esima mossa totale! Ecco la scacchiera finale:");
+        cout << board->printBoard();
         cond = 6;
     }
     board->updateLogVictory(cond);
