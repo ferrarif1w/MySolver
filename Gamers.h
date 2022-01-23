@@ -6,13 +6,14 @@
 #define GAMERS_H
 
 #include "chessBoard.h"
+#include <memory>
 
 class Gamers
 {
 
 private:
     char Color;                                     //colore dei pezzi del giocatore
-    ChessBoard *chessBoard; //scacchiera
+    std::shared_ptr<ChessBoard> chessBoard; //scacchiera
 
 public:
 

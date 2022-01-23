@@ -7,12 +7,11 @@
 Gamers::Gamers(char C, ChessBoard *B)
 {
     Color = C;
-    chessBoard = B;
+    chessBoard = std::shared_ptr<ChessBoard>(B);
 }
 
 Gamers::~Gamers() {
-    delete chessBoard;
-    chessBoard = nullptr;
+    chessBoard.reset();
 }
 
 bool Gamers::Move(std::string start, std::string end)
