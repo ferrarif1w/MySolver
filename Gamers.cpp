@@ -7,12 +7,18 @@
 Gamers::Gamers(char C, ChessBoard *B)
 {
     Color = C;
-    chessBoard = std::shared_ptr<ChessBoard>(B);
+    chessBoard = B;
+}
+
+Gamers::~Gamers() 
+{
+    //memoria allocata per scacchiera viene deallocata in scacchieraMain
+    chessBoard = nullptr;
 }
 
 bool Gamers::Move(std::string start, std::string end)
 {
-    //si trsforma la lettera della riga/colonna in un valore corrispondente (0-7) per la scacchiera
+    //si trasforma la lettera della riga/colonna in un valore corrispondente (0-7) per la scacchiera
     int sFirst = start[1]-49;               //1
     int sSecond = start[0] - 65;            //A
     //l'if serve nel caso il carattere sia una lettera minuscola

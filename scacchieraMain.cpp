@@ -110,10 +110,10 @@ int main(int argc, char** args) {
     }
     //genera scacchiera con nome di file di log e nomi dei giocatori
     string logFile = CLN();
-    ChessBoard board = ChessBoard(logFile, names[0], names[1]);
+    ChessBoard* board = new ChessBoard(logFile, names[0], names[1]);
     //genera oggetti giocatori e li inserisci in players
-    players.push_back(new Gamers('B', &board));
-    players.push_back(new Gamers('N', &board));
+    players.push_back(new Gamers('B', board));
+    players.push_back(new Gamers('N', board));
     int i = 0; //contatore di mosse
     int index; //index = i%2: serve a determinare se è il turno del bianco o del nero
     //limite di mosse generale: 150 se game == "cc", -1 altrimenti (non deve esserci in partita umano-bot)
@@ -133,7 +133,7 @@ int main(int argc, char** args) {
         switch (cond) {
             case 0: //scaccomatto
                 PTE(names[index] + " è in scaccomatto, " + names[(i+1)%2] + " vince! Ecco la scacchiera finale:");
-                cout << board.printBoard();
+                cout << board->printBoard();
                 endgame = true;
                 continue;
             case 1: //scacco
@@ -141,17 +141,17 @@ int main(int argc, char** args) {
                 break;
             case 2: //stallo
                 PTE("È stato raggiunto uno stallo! Ecco la scacchiera finale:");
-                cout << board.printBoard();
+                cout << board->printBoard();
                 endgame = true;
                 continue;
             case 3: //patta per mancanza di pezzi
                 PTE("La partita termina in patta! Non ci sono abbastanza pezzi per eseguire uno scaccomatto! Ecco la scacchiera finale:");
-                cout << board.printBoard();
+                cout << board->printBoard();
                 endgame = true;
                 continue;
             case 4: //patta per 50 mosse
                 PTE("La partita termina in patta! Sono state eseguite 50 mosse senza spostare pedoni o mangiare pezzi! Ecco la scacchiera finale:");
-                cout << board.printBoard();
+                cout << board->printBoard();
                 endgame = true;
                 continue;
             case 5: //possibile patta per ripetizione di posizione
@@ -191,7 +191,7 @@ int main(int argc, char** args) {
             PTE("Se vuoi stampare la scacchiera, inserire 'y': ");
             string code;
             cin >> code;
-            if (code == "y") cout << board.printBoard();
+            if (code == "y") cout << board->printBoard();
             else if (code == "patta") { //se umano propone patta, bot decide casualmente se accettarla
                 if (randomDecision(BDAP)) {
                     PTE(names[(i+1)%2] + " accetta la patta! La partita termina!");
@@ -220,7 +220,7 @@ int main(int argc, char** args) {
             }
             if (result) {   //promozione possibile
                 message = "Inserisci il pezzo in cui vuoi promuovere il pedone in ";
-                pair<int, int> pos = board.getPawnToPromote();
+                pair<int, int> pos = board->getPawnToPromote();
                 message += pos.second + 65; //incrementato di 65 per arrivare a lettera che rappresenta colonna
                 message += pos.first + 49;  //incrementato di 49 per arrivare a numero che rappresenta riga
                 promotion:
@@ -267,7 +267,7 @@ int main(int argc, char** args) {
             bool result = currentPlayer->Move(); //eseguita mossa casuale
             PTE("Mossa effettuata!");
             if (result) {   //promozione posssibile
-                pair<int, int> pos = board.getPawnToPromote();
+                pair<int, int> pos = board->getPawnToPromote();
                 char newPiece = players[index]->PerformPromotion(); //pedone promosso in pezzo casuale
                 message = "Promozione effettuata: il pedone in ";
                 message += pos.second + 65;
@@ -296,9 +296,10 @@ int main(int argc, char** args) {
         PTE("La partita termina in patta! È stata effettuata la " + to_string(movesThreshold) + "esima mossa totale!");
         cond = 6;
     }
-    board.updateLogVictory(cond);
+    board->updateLogVictory(cond);
     PTE("File di log generato: '" + logFile + "'!");
     PTE("Grazie per aver giocato!");
     delete players[0];
     delete players[1];
+    delete board;
 }

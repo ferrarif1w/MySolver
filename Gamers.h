@@ -13,12 +13,15 @@ class Gamers
 
 private:
     char Color;                                     //colore dei pezzi del giocatore
-    std::shared_ptr<ChessBoard> chessBoard; //scacchiera
+    ChessBoard *chessBoard; //scacchiera
 
 public:
 
 //costruttore
         Gamers(char C, ChessBoard *chessBoard);         //costruttore dei due tipi di giocatori (bot e giocatore umano)
+
+//distruttore
+        ~Gamers();
 
         //player
         bool Move(std::string start, std::string end);  //metodo che esegue la mossa per il player
